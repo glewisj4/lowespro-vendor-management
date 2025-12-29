@@ -1,5 +1,7 @@
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import './App.css'
+import DashboardPage from './DashboardPage'
+import SimplePage from './SimplePage'
 
 // Sidebar Component
 function Sidebar() {
