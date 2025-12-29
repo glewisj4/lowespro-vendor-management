@@ -3,6 +3,7 @@ import './App.css'
 import DashboardPage from './DashboardPage'
 import SimplePage from './SimplePage'
 
+
 // Sidebar Component
 function Sidebar() {
   const location = useLocation()
