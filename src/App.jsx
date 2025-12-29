@@ -2,6 +2,9 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import './App.css'
 import DashboardPage from './DashboardPage'
 import SimplePage from './SimplePage'
+import VendorsPage from './VendorsPage';
+import ProCustomersPage from './ProCustomersPage';
+import BrandsPage from './BrandsPage';
 
 // Sidebar Component
 function Sidebar() {
@@ -59,11 +62,9 @@ function App() {
         <Routes>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/analytics" element={<SimplePage title="Analytics Hub" />} />
-          <Route path="/vendors" element={<SimplePage title="Vendors" />} />
-          <Route path="/sales-reps" element={<SimplePage title="Sales Representatives" />} />
-          <Route path="/brands" element={<SimplePage title="Brands" />} />
-          <Route path="/customers" element={<SimplePage title="Pro Customers" />} />
-          <Route path="/categories" element={<SimplePage title="Categories" />} />
+            <Route path="/vendors" element={<VendorsPage />} />          <Route path="/sales-reps" element={<SimplePage title="Sales Representatives" />} />
+            <Route path="/brands" element={<BrandsPage />} />
+            <Route path="/customers" element={<ProCustomersPage />} />          <Route path="/categories" element={<SimplePage title="Categories" />} />
           <Route path="/services" element={<SimplePage title="Services" />} />
         </Routes>
       </main>
