@@ -1,7 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
+    const [currentPage, setCurrentPage] = useState('dashboard')
+
+  // Handle navigation
+  const handleNavigation = (page) => {
+    setCurrentPage(page)
+  }
+
+  // Listen to hash changes for browser back/forward
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '') || 'dashboard'
+      setCurrentPage(hash)
+    }
+    window.addEventListener('hashchange', handleHashChange)
+    handleHashChange() // Set initial page from URL
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [])
+
   return (
     <div id="app">
       <aside className="sidebar">
