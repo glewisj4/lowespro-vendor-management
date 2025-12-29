@@ -51,26 +51,6 @@ function Sidebar() {
   )
 }
 
-
-  return (
-    <>
-      <header className="page-header">
-        <div className="header-left">
-          <h2>{title}</h2>
-          <p className="subtitle">Manage your {title.toLowerCase()}</p>
-        </div>
-      </header>
-      <div style={{padding: '32px'}}>
-        <div className="card">
-          <h3>{title} Management</h3>
-          <p>This page will display {title.toLowerCase()} data from Supabase.</p>
-          <p style={{marginTop: '16px', color: '#718096'}}>Coming soon with full CRUD operations and data integration.</p>
-        </div>
-      </div>
-    </>
-  )
-}
-
 function App() {
   return (
     <div id="app">
