@@ -342,9 +342,8 @@ export default function VendorsPage() {
           </table>
         </div>
       </div>
-    </div>
 
-          {showEditModal && editingVendor && (
+      {showEditModal && editingVendor && (
         <VendorEditModal
           vendor={editingVendor}
           categories={categories}
@@ -353,5 +352,8 @@ export default function VendorsPage() {
           onSave={handleModalSave}
         />
       )}
-    );
+    </div>
+      );
+
+          
 }
