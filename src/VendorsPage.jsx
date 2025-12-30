@@ -353,5 +353,5 @@ export default function VendorsPage() {
           onSave={handleModalSave}
         />
       )}
-  );
+    )
 }
