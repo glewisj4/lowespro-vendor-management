@@ -51,11 +51,27 @@ export default function VendorsPage() {
     try {
       const { data, error } = await supabase
         .from('vendors')
-        .select('*')
+        .select(`
+          *,
+          vendor_categories(category_id, categories(name)),
+          vendor_sales_reps(sales_rep_id, is_primary, sales_reps(name))
+        `)
         .order('name');
-      
+
       if (error) throw error;
-      setVendors(data || []);
+
+      // Transform the data to include categories and reps arrays
+      const vendorsWithRelations = (data || []).map(vendor => ({
+        ...vendor,
+        categories: vendor.vendor_categories?.map(vc => vc.categories?.name).filter(Boolean) || [],
+        salesReps: vendor.vendor_sales_reps?.map(vsr => ({
+          name: vsr.sales_reps?.name,
+          isPrimary: vsr.is_primary
+        })).filter(sr => sr.name) || []
+      }));
+
+      setVendors(vendorsWithRelations || []);
+      
     } catch (error) {
       console.error('Error fetching vendors:', error);
     } finally {
@@ -260,6 +276,12 @@ export default function VendorsPage() {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
                 </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Categories
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Sales Reps
+              </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
                 </th>
