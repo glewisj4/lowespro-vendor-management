@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
+import VendorEditModal from './VendorEditModal';
 
 export default function VendorsPage() {
   const [vendors, setVendors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
+    const [showEditModal, setShowEditModal] = useState(false);
+  const [editingVendor, setEditingVendor] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     contact_name: '',
@@ -340,5 +343,15 @@ export default function VendorsPage() {
         </div>
       </div>
     </div>
+
+          {showEditModal && editingVendor && (
+        <VendorEditModal
+          vendor={editingVendor}
+          categories={categories}
+          salesReps={salesReps}
+          onClose={handleModalClose}
+          onSave={handleModalSave}
+        />
+      )}
   );
 }
