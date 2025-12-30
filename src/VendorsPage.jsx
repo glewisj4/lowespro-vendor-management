@@ -14,9 +14,38 @@ export default function VendorsPage() {
     status: 'active'
   });
 
+  // Categories and Sales Reps state
+  const [categories, setCategories] = useState([]);
+  const [salesReps, setSalesReps] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedSalesReps, setSelectedSalesReps] = useState([]);
+
   useEffect(() => {
     fetchVendors();
   }, []);
+
+  useEffect(() => {
+    fetchCategoriesAndReps();
+  }, []);
+
+  async function fetchCategoriesAndReps() {
+    try {
+      const { data: categoriesData } = await supabase
+        .from('categories')
+        .select('*')
+        .order('name');
+      
+      const { data: repsData } = await supabase
+        .from('sales_reps')
+        .select('*')
+        .order('name');
+      
+      setCategories(categoriesData || []);
+      setSalesReps(repsData || []);
+    } catch (error) {
+      console.error('Error fetching categories and reps:', error);
+    }
+  }
 
   async function fetchVendors() {
     try {
@@ -47,6 +76,9 @@ export default function VendorsPage() {
         const { error } = await supabase
           .from('vendors')
           .insert([formData]);
+
+        // Save vendor ID for relationships
+        const newVendorId = error && error.length > 0 ? null : data[0]?.id;
         if (error) throw error;
       }
       
